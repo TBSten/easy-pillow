@@ -26,6 +26,12 @@ p.box(
 )
 ```
 
+## a.width(width)
+
+## a.height(height)
+
+## a.size(width, height)
+
 ## a.backgroundColor(color)
 
 alias: `a.bgColor`
@@ -55,6 +61,8 @@ p.box(
     a.backgroundGradient("./background.png"),
 )
 ```
+
+## a.shadow(color, blur, spread)
 
 ## a.border(color, width, style)
 
