@@ -29,9 +29,6 @@ class ColumnElement(Element):
     def __init__(self, attrs: AttributeLike=[], elements: list[Element]=[]) -> None:
         super().__init__(*to_attributes(attrs), *elements)
         self.name = "Column"
-    def measure_size(self, context: RenderContext, offset: Offset) -> Size:
-        size = super().measure_size(context, offset)
-        return size
     def measure_content_size(self, context:RenderContext, offset: Offset) -> Size:
         w = 0
         h = 0
@@ -50,6 +47,29 @@ class ColumnElement(Element):
             child_w, child_h = child.measure_size(context, (child_x, child_y))
             child.draw(context, (child_x, child_y))
             y += child_h
+
+class RowElement(Element):
+    def __init__(self, attrs: AttributeLike=[], elements: list[Element]=[]) -> None:
+        super().__init__(*to_attributes(attrs), *elements)
+        self.name = "Row"
+    def measure_content_size(self, context:RenderContext, offset: Offset) -> Size:
+        w = 0
+        h = 0
+        for child in self._child_elements:
+            child_x = offset[0] + w
+            child_y = offset[1]
+            child_w, child_h = child.measure_size(context, (child_x,child_y))
+            w += child_w
+            h = child_h if h <= child_h else h
+        return (w, h)
+    def on_draw(self, context: RenderContext, offset: Offset, size: Size):
+        x = 0
+        for child in self._child_elements:
+            child_x = offset[0] + x
+            child_y = offset[1]
+            child_w, child_h = child.measure_size(context, (child_x, child_y))
+            child.draw(context, (child_x, child_y))
+            x += child_w
 
 class TextElement(Element):
     def __init__(self, text:str, color: Color=(0,0,0), attrs: AttributeLike = []) -> None:
@@ -109,6 +129,7 @@ class _EasyPillowElements:
         self.root = RootElement
         self.column = ColumnElement
         self.spacer = spacer
+        self.row = RowElement
 
 
 p = _EasyPillowElements()
