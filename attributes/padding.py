@@ -1,10 +1,11 @@
 from core.attributes import Attribute
 from core.context import DrawContext
+from core.layout import Number
 from core.node import DrawNode
 
 
 class PaddingAttribute(Attribute):
-    def __init__(self, left=0, top=0, right=0, bottom=0):
+    def __init__(self, left: Number = 0, top: Number = 0, right: Number = 0, bottom: Number = 0):
         super().__init__()
         self.left = left
         self.top = top
@@ -28,7 +29,7 @@ class PaddingAttribute(Attribute):
             )
 
         attr_node = PaddingAttribute.Node(
-            label="test-attr",
+            label="padding-attr",
             x=target.x, y=target.y,
             w=left+target_w+right, h=top+target_h+bottom,
             children=[target],
