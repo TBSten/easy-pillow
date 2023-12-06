@@ -48,7 +48,6 @@ class RowElement(Element):
         row_node.w = w
         row_node.h = h
         row_node.children = children
-        print("row draw node", row_node)
         return row_node
 
     class Node(DrawNode):

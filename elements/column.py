@@ -43,11 +43,9 @@ class ColumnElement(Element):
                 w = child_node_w
             h += child_node_h
 
-        print("column children", w, h)
         for child in children:
             if child.w == -1:
                 child.w = w
-            print("column child", child)
         column_node.w = w
         column_node.h = h
         column_node.children = children
