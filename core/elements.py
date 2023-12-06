@@ -12,7 +12,7 @@ class Element(metaclass=ABCMeta):
 
     def layout(self, context: DrawContext) -> DrawNode:
         node = self.on_layout(context)
-        for attr in self.attrs:
+        for attr in reversed(self.attrs):
             node = attr.layout(context, node)
         return node
 
