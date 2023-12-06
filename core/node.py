@@ -4,9 +4,7 @@ from typing import TypeAlias
 from PIL import Image
 
 from core.context import DrawContext
-from core.layout import Number
-
-Length: TypeAlias = "Number|None"
+from core.unit import Length
 
 DrawNodeType: TypeAlias = "DrawNode"
 Parent: TypeAlias = "DrawNode|None"

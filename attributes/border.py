@@ -4,8 +4,8 @@ from attributes.padding import PaddingAttribute
 from core.attributes import Attribute
 from core.color import Color
 from core.context import DrawContext
-from core.layout import Number
 from core.node import DrawNode, DrawNodeType, Length, Parent
+from core.unit import Number
 
 
 class RoundAttribute(Attribute):

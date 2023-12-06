@@ -4,8 +4,8 @@ from core.align import HorizontalAlign, VerticalAlign
 from core.attributes import Attrs
 from core.context import DrawContext
 from core.elements import Element
-from core.layout import Number
 from core.node import DrawNode
+from core.unit import Number
 
 
 class ColumnElement(Element):

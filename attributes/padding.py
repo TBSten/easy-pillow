@@ -1,7 +1,7 @@
 from core.attributes import Attribute
 from core.context import DrawContext
-from core.layout import Number
 from core.node import DrawNode
+from core.unit import Number
 
 
 class PaddingAttribute(Attribute):

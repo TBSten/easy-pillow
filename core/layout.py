@@ -1,6 +1,5 @@
-from typing import TypeAlias
 
-Number: TypeAlias = "int|float"
+from core.unit import Length, Number
 
 
 def number_to_int(num: Number):
