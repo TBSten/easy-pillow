@@ -8,7 +8,7 @@ from PIL import Image
 def to_image(root_element: Element):
     # layout
     context = DrawContext(Image.new("RGBA", (0, 0)))
-    el_draw_node = RootDrawNode(node_id="root-node", root_node=root_element.layout(context))
+    el_draw_node = RootDrawNode(label="root-node", root_node=root_element.layout(context))
     el_draw_node.x = 0
     el_draw_node.y = 0
 

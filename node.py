@@ -15,7 +15,7 @@ Parent: TypeAlias = "DrawNode|None"
 class DrawNode(metaclass=ABCMeta):
     def __init__(
         self,
-        node_id,
+        label,
         parent: Parent = None,
         x: Length = None, y: Length = None,
         w: Length = None, h: Length = None,
@@ -27,17 +27,17 @@ class DrawNode(metaclass=ABCMeta):
         self.w = w
         self.h = h
         self.children = children
-        self.node_id = node_id
+        self.label = label
 
     @property
     def absolute_x(self):
         if self.parent is None:
             print("❌ invaild parent")
-            print(self.node_id, self.parent)
+            print(self.label, self.parent)
             raise NotImplementedError("❌ invalid parent")
         elif self.parent.absolute_x is None:
             print("❌ invaild parent absolute_x")
-            print(self.node_id, self.parent, self.parent.absolute_x)
+            print(self.label, self.parent, self.parent.absolute_x)
             raise NotImplementedError("❌ invalid parent")
         return self.parent.absolute_x + self.x
 
@@ -45,11 +45,11 @@ class DrawNode(metaclass=ABCMeta):
     def absolute_y(self):
         if self.parent is None:
             print("❌ invaild parent")
-            print(self.node_id, self.parent)
+            print(self.label, self.parent)
             raise NotImplementedError("❌ invalid parent")
         elif self.parent.absolute_y is None:
             print("❌ invaild parent absolute_y")
-            print(self.node_id, self.parent, self.parent.absolute_y)
+            print(self.label, self.parent, self.parent.absolute_y)
             raise NotImplementedError("❌ invalid parent absolute_y")
         return self.parent.absolute_y + self.y
 
@@ -57,7 +57,7 @@ class DrawNode(metaclass=ABCMeta):
         children_str = f",children=[{','.join([str(child) for child in self.children])}]" if \
             len(self.children) >= 1 \
             else ""
-        return f"DrawNode(node_id={self.node_id},x={self.x},y={self.y},w={self.w},h={self.h}{children_str},parent_id={self.parent.node_id if self.parent is not None else 'None'})"
+        return f"DrawNode(label={self.label},x={self.x},y={self.y},w={self.w},h={self.h}{children_str},parent_id={self.parent.label if self.parent is not None else 'None'})"
 
     def draw(self, context: DrawContext):
         base_img = context.img
@@ -91,11 +91,11 @@ class DrawNode(metaclass=ABCMeta):
 class RootDrawNode(DrawNode):
     def __init__(
         self,
-        node_id,
+        label,
         root_node:DrawNodeType,
     ) -> None:
         super().__init__(
-            node_id=node_id,
+            label=label,
             parent=None,
             x=0,
             y=0,

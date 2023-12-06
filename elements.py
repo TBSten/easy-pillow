@@ -68,7 +68,7 @@ class ColumnElement(Element):
         self.children = children
 
     def on_layout(self, context: DrawContext) -> DrawNode:
-        column_node = ColumnElement.Node(node_id="column_node")
+        column_node = ColumnElement.Node(label="column_node")
         w = 0
         h = 0
         children: list[DrawNode] = []
@@ -125,7 +125,7 @@ class RowElement(Element):
         self.children = children
 
     def on_layout(self, context: DrawContext) -> DrawNode:
-        row_node = RowElement.Node(node_id="row-element")
+        row_node = RowElement.Node(label="row-element")
         w = 0
         h = 0
         children: list[DrawNode] = []

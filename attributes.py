@@ -46,7 +46,7 @@ class PaddingAttribute(Attribute):
             )
         
         attr_node = PaddingAttribute.Node(
-            node_id="test-attr",
+            label="test-attr",
             x=target.x, y=target.y,
             w=left+target_w+right, h=top+target_h+bottom,
             children=[target],
