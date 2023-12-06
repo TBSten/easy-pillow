@@ -7,32 +7,29 @@ from core.node import DrawNode, DrawNodeType, Length, Parent
 class Spacer(Element):
     def __init__(
         self,
-        width=None,
-        height=None,
-        color=(255, 0, 0),
         attrs: Attrs = [],
     ):
         super().__init__(attrs=attrs)
-        self.width = width
-        self.height = height
-        self.color = color
+
+    def layout(self, context: DrawContext) -> DrawNode:
+        node = super().layout(context)
+        print(node.w, node.h)
+        return node
 
     def on_layout(self, context: DrawContext) -> DrawNode:
-        return Spacer.Node(color=self.color, w=self.width, h=self.height)
+        return Spacer.Node()
 
     class Node(DrawNode):
         def __init__(
             self,
-            color,
             parent: Parent = None,
             x: Length = None,
             y: Length = None,
-            w: Length = None,
-            h: Length = None,
+            w: Length = 0,
+            h: Length = 0,
             children: list[DrawNodeType] = [],
         ) -> None:
             super().__init__("spacer-element", parent, x, y, w, h, children)
-            self.color = color
 
         def on_draw(self, context: DrawContext):
-            context.img_draw.rectangle(self.to_tuple(), fill=self.color)
+            pass
