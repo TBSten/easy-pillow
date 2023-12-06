@@ -1,14 +1,17 @@
 
 
-from context import DrawContext
-from elements import Element
-from node import RootDrawNode
 from PIL import Image
+
+from core.context import DrawContext
+from core.elements import Element
+from core.node import RootDrawNode
+
 
 def to_image(root_element: Element):
     # layout
     context = DrawContext(Image.new("RGBA", (0, 0)))
-    el_draw_node = RootDrawNode(label="root-node", root_node=root_element.layout(context))
+    el_draw_node = RootDrawNode(
+        label="root-node", root_node=root_element.layout(context))
     el_draw_node.x = 0
     el_draw_node.y = 0
 
@@ -24,4 +27,3 @@ def to_image(root_element: Element):
     image = context.img
 
     return image
-

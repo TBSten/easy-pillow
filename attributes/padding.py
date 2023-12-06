@@ -1,25 +1,6 @@
-
-from abc import ABCMeta, abstractmethod
-from typing import TypeAlias
-
-from context import DrawContext
-from layout import Offset
-from node import DrawNode
-
-
-class Attribute(metaclass=ABCMeta):
-    def __init__(self):
-        pass
-
-    def layout(self, context: DrawContext, target: DrawNode) -> DrawNode:
-        return self.on_layout(context, target)
-
-    @abstractmethod
-    def on_layout(self, context: DrawContext, target: DrawNode) -> DrawNode:
-        pass
-
-
-Attrs: TypeAlias = "list[Attribute]"
+from core.attributes import Attribute
+from core.context import DrawContext
+from core.node import DrawNode
 
 
 class PaddingAttribute(Attribute):
@@ -29,6 +10,7 @@ class PaddingAttribute(Attribute):
         self.top = top
         self.right = right
         self.bottom = bottom
+
     def on_layout(self, context: DrawContext, target: DrawNode) -> DrawNode:
         left = self.left
         top = self.top
@@ -44,7 +26,7 @@ class PaddingAttribute(Attribute):
             raise NotImplementedError(
                 f"invalid target.h:{target_h} for padding attr"
             )
-        
+
         attr_node = PaddingAttribute.Node(
             label="test-attr",
             x=target.x, y=target.y,

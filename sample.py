@@ -1,7 +1,9 @@
 
-from image import to_image
-from attributes import PaddingAttribute
-from elements import ColumnElement, RowElement, Spacer
+from attributes.padding import PaddingAttribute
+from core.image import to_image
+from elements.column import ColumnElement
+from elements.row import RowElement
+from elements.spacer import Spacer
 
 image = to_image(
     ColumnElement(

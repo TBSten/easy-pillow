@@ -3,8 +3,8 @@ from typing import TypeAlias
 
 from PIL import Image
 
-from context import DrawContext
-from layout import Number, Rect
+from core.context import DrawContext
+from core.layout import Number
 
 Length: TypeAlias = "Number|None"
 
@@ -88,28 +88,32 @@ class DrawNode(metaclass=ABCMeta):
             raise NotImplementedError(f"invalid h {h}")
         return (x, y, x+w, y+h)
 
+
 class RootDrawNode(DrawNode):
     def __init__(
         self,
         label,
-        root_node:DrawNodeType,
+        root_node: DrawNodeType,
     ) -> None:
         super().__init__(
             label=label,
             parent=None,
             x=0,
             y=0,
-            w=root_node.w,h=root_node.h,
+            w=root_node.w, h=root_node.h,
             children=[root_node],
         )
         root_node.x = 0
         root_node.y = 0
         root_node.parent = self
+
     @property
     def absolute_x(self):
         return 0
+
     @property
     def absolute_y(self):
         return 0
+
     def on_draw(self, context: DrawContext):
         self.draw_children(context)
