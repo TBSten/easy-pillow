@@ -1,15 +1,17 @@
 # easy pillow 's basic elements
 
-## p.text
+## text
 
-## p.img
+## img
 
-## p.box
+## box
 
-## p.column
+## v_stack
 
-## p.row
+## h_stack
 
-## p.spacer
+## grid
 
-## p.border
+## spacer
+
+## border
