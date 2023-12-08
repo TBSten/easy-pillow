@@ -3,6 +3,7 @@ from abc import ABCMeta, abstractmethod
 
 from core.attributes import Attrs
 from core.context import DrawContext
+from core.layout import LayoutConstraints
 from core.node import DrawNode
 
 
@@ -10,12 +11,16 @@ class Element(metaclass=ABCMeta):
     def __init__(self, attrs: Attrs = []):
         self.attrs = attrs
 
-    def layout(self, context: DrawContext) -> DrawNode:
-        node = self.on_layout(context)
+    def layout(self, context: DrawContext, constraints: LayoutConstraints) -> DrawNode:
+        for attr in self.attrs:
+            constraints = attr.set_constraints(context, constraints)
+        node = self.on_layout(context, constraints.copy())
         for attr in reversed(self.attrs):
-            node = attr.layout(context, node)
+            node = attr.layout(context, constraints, node)
+            node.w = constraints.get_width_with_constraints(node.w)
+            node.h = constraints.get_height_with_constraints(node.h)
         return node
 
     @abstractmethod
-    def on_layout(self, context: DrawContext) -> DrawNode:
+    def on_layout(self, context: DrawContext, constraints: LayoutConstraints) -> DrawNode:
         pass

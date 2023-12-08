@@ -1,6 +1,7 @@
 from core.attributes import Attrs
 from core.context import DrawContext
 from core.elements import Element
+from core.layout import LayoutConstraints
 from core.node import DrawNode, DrawNodeType, Length, Parent
 
 
@@ -10,13 +11,11 @@ class Spacer(Element):
         attrs: Attrs = [],
     ):
         super().__init__(attrs=attrs)
-
-    def layout(self, context: DrawContext) -> DrawNode:
-        node = super().layout(context)
-        print(node.w, node.h)
+    def layout(self, context: DrawContext, constraints: LayoutConstraints) -> DrawNode:
+        node = super().layout(context, constraints)
         return node
 
-    def on_layout(self, context: DrawContext) -> DrawNode:
+    def on_layout(self, context: DrawContext, constraints: LayoutConstraints) -> DrawNode:
         return Spacer.Node()
 
     class Node(DrawNode):

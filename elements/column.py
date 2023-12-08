@@ -4,6 +4,7 @@ from core.align import HorizontalAlign, VerticalAlign
 from core.attributes import Attrs
 from core.context import DrawContext
 from core.elements import Element
+from core.layout import LayoutConstraints
 from core.node import DrawNode
 from core.unit import Number
 
@@ -25,13 +26,13 @@ class ColumnElement(Element):
         self.vertical_gap = vertical_gap
         self.horizontal_gap = horizontal_gap
 
-    def on_layout(self, context: DrawContext) -> DrawNode:
+    def on_layout(self, context: DrawContext, constraints: LayoutConstraints) -> DrawNode:
         column_node = ColumnElement.Node(label="column_node")
         w = 0
         h = 0
         children: list[DrawNode] = []
         for child in self.children:
-            child_node = child.layout(context)
+            child_node = child.layout(context, constraints.copy(min_h=None, max_h=None))
             child_node.parent = column_node
             child_node_w = child_node.w = cast(
                 int,
@@ -52,6 +53,9 @@ class ColumnElement(Element):
             h += child_node_h
             h += self.vertical_gap
         h -= self.vertical_gap
+
+        w = constraints.get_width_with_constraints(w)
+        h = constraints.get_height_with_constraints(h)
 
         for child in children:
             if child.w == -1:

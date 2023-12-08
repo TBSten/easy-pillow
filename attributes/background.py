@@ -1,6 +1,7 @@
 from core.attributes import Attribute
 from core.color import Color
 from core.context import DrawContext
+from core.layout import LayoutConstraints
 from core.node import DrawNode, DrawNodeType, Length, Parent
 
 
@@ -9,7 +10,7 @@ class BackgroundAttribute(Attribute):
         super().__init__()
         self.color = color
 
-    def on_layout(self, context: DrawContext, target: DrawNode) -> DrawNode:
+    def on_layout(self, context: DrawContext, constraints: LayoutConstraints, target: DrawNode) -> DrawNode:
         attr_node = BackgroundAttribute.Node(
             label="background-attr-"+str(self.color),
             color=self.color,

@@ -6,6 +6,6 @@ def print_node_tree(root_node: DrawNode):
 
 
 def _print_node(node: DrawNode, indent: int):
-    print(f"{'  '*indent}{node.label}")
+    print(f"{'  '*indent}{node.label} {node.w}*{node.h}")
     for child in node.children:
         _print_node(child, indent+1)

@@ -1,9 +1,7 @@
 
-import sys
-
 from attributes.background import BackgroundAttribute
 from attributes.border import BorderAttribute
-from attributes.size import WidthAttribute, size
+from attributes.size import HeightAttribute, WidthAttribute, size
 from core.align import HorizontalAlign
 from core.color import Color
 from core.elements import Element
@@ -20,47 +18,81 @@ WHITE = Color.WHITE
 
 
 def test1():
-    spacers: list[Element] = [
-        Spacer(attrs=[
-            BackgroundAttribute(RED.copy(a=255*0.5)),
-            size(30, 30),
-        ]),
-        Spacer(attrs=[
-            BackgroundAttribute(RED.copy(a=255*0.25)),
-            size(30, 30),
-        ]),
-        Spacer(attrs=[
-            BackgroundAttribute(RED.copy(a=255*0.125)),
-            size(30, 30),
-        ]),
-    ]
     row_sample = RowElement(
         horizontal_gap=10,
         horizontal_align=HorizontalAlign.CENTER,
-        attrs=[BorderAttribute(45, WHITE), WidthAttribute(50)],
-        children=spacers,
+        attrs=[
+            BackgroundAttribute(Color.BLUE.copy(a=16)),
+            BorderAttribute(2, WHITE),
+            WidthAttribute(200),
+            HeightAttribute(100),
+        ],
+        children=[
+            Spacer(attrs=[
+                BackgroundAttribute(RED.copy(a=255*0.5)),
+                size(30, 30),
+            ]),
+            Spacer(attrs=[
+                BackgroundAttribute(RED.copy(a=255*0.25)),
+                size(30, 30),
+            ]),
+            Spacer(attrs=[
+                BackgroundAttribute(RED.copy(a=255*0.125)),
+                size(30, 30),
+            ]),
+        ],
     )
     col_sample = ColumnElement(
         vertical_gap=10,
         attrs=[BorderAttribute(1, WHITE)],
-        children=spacers,
+        children=[
+            Spacer(attrs=[
+                BackgroundAttribute(RED.copy(a=255*0.5)),
+                size(30, 30),
+            ]),
+            Spacer(attrs=[
+                BackgroundAttribute(RED.copy(a=255*0.25)),
+                size(30, 30),
+            ]),
+            Spacer(attrs=[
+                BackgroundAttribute(RED.copy(a=255*0.125)),
+                size(30, 30),
+            ]),
+        ],
     )
-    img = to_image(
-        ColumnElement(
-            vertical_gap=10,
-            children=[
-                RowElement(
-                    children=[row_sample, col_sample],
-                    horizontal_gap=10,
-                ),
-                RowElement(
-                    children=[col_sample, row_sample],
-                    horizontal_gap=10,
-                ),
-            ],
-        )
-    )
-    img.save("./output/test1.png")
+    img = ColumnElement(children=[
+        RowElement(children=[
+            row_sample, col_sample,
+        ]),
+        RowElement(children=[
+            col_sample, row_sample, 
+        ]),
+    ])
+
+    # red = Spacer([
+    #     BorderAttribute(1, WHITE),
+    #     BackgroundAttribute(Color.RED.copy(a=128)),
+    #     # WidthAttribute(200),
+    #     # HeightAttribute(100),
+    #     size(200,100),
+    # ])
+    # img = ColumnElement(children=[
+    #     RowElement(children=[
+    #         ColumnElement(children=[red]),
+    #         RowElement(children=[red,red]),
+    #         ColumnElement(children=[red]),
+    #         RowElement(children=[red]),
+    #         ColumnElement(children=[red,red]),
+    #     ]),
+    #     RowElement(children=[
+    #         RowElement(children=[red]),
+    #         ColumnElement(children=[red]),
+    #         RowElement(children=[red]),
+    #         ColumnElement(children=[red]),
+    #     ]),
+    # ])
+
+    to_image(img,debug=True).save("./output/test1.png")
 
 
 test1()

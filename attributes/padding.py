@@ -1,5 +1,6 @@
 from core.attributes import Attribute
 from core.context import DrawContext
+from core.layout import LayoutConstraints
 from core.node import DrawNode
 from core.unit import Number
 
@@ -12,7 +13,7 @@ class PaddingAttribute(Attribute):
         self.right = right
         self.bottom = bottom
 
-    def on_layout(self, context: DrawContext, target: DrawNode) -> DrawNode:
+    def on_layout(self, context: DrawContext, constraints: LayoutConstraints, target: DrawNode) -> DrawNode:
         left = self.left
         top = self.top
         right = self.right

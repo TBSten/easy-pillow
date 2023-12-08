@@ -4,8 +4,9 @@ from core.align import HorizontalAlign, VerticalAlign
 from core.attributes import Attrs
 from core.context import DrawContext
 from core.elements import Element
-from core.layout import Number
+from core.layout import LayoutConstraints
 from core.node import DrawNode
+from core.unit import Number
 
 
 class RowElement(Element):
@@ -25,13 +26,13 @@ class RowElement(Element):
         self.vertical_gap = vertical_gap
         self.horizontal_gap = horizontal_gap
 
-    def on_layout(self, context: DrawContext) -> DrawNode:
+    def on_layout(self, context: DrawContext, constraints: LayoutConstraints) -> DrawNode:
         row_node = RowElement.Node(label="row-element")
         w = 0
         h = 0
         children: list[DrawNode] = []
         for child in self.children:
-            child_node = child.layout(context)
+            child_node = child.layout(context, constraints)
             child_node.parent = row_node
             child_node.h = child_node_h = cast(
                 int,
