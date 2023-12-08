@@ -54,15 +54,32 @@ class RowElement(Element):
             w += self.horizontal_gap
         w -= self.horizontal_gap
 
+        content_w = w
+        content_h = h
+
+        w = constraints.get_width_with_constraints(content_w)
+        h = constraints.get_height_with_constraints(content_h)
+
         for child in children:
-            if child.w == -1:
-                child.w = w
+            # 横幅が-1の場合 横幅いっぱいに伸ばす
+            if child.h == -1:
+                child.h = h
+            # self.vertical_align を適用
             child_h = child.h
             if child_h is None:
                 raise NotImplementedError(
                     f"invalid column child height {child_h}"
                 )
             child.y = (h-child_h)*self.vertical_align.value
+            # self.horizontal_align を適用
+            child_w = child.w
+            if child_w is None:
+                raise NotImplementedError(
+                    f"invalid column child width {child_w}"
+                )
+            child.x += (w-content_w)*self.horizontal_align.value
+
+
         row_node.w = w
         row_node.h = h
         row_node.children = children

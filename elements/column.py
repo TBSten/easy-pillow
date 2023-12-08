@@ -54,18 +54,31 @@ class ColumnElement(Element):
             h += self.vertical_gap
         h -= self.vertical_gap
 
-        w = constraints.get_width_with_constraints(w)
-        h = constraints.get_height_with_constraints(h)
+        content_w = w
+        content_h = h
+
+        w = constraints.get_width_with_constraints(content_w)
+        h = constraints.get_height_with_constraints(content_h)
 
         for child in children:
+            # 横幅が-1の場合 横幅いっぱいに伸ばす
             if child.w == -1:
                 child.w = w
+            # self.horizontal_align を適用
             child_w = child.w
             if child_w is None:
                 raise NotImplementedError(
                     f"invalid column child width {child_w}"
                 )
             child.x = (w-child_w)*self.horizontal_align.value
+            # self.vertical_align を適用
+            child_h = child.h
+            if child_h is None:
+                raise NotImplementedError(
+                    f"invalid column child hidth {child_h}"
+                )
+            child.y += (h-content_h)*self.vertical_align.value
+
         column_node.w = w
         column_node.h = h
         column_node.children = children
