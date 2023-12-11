@@ -1,3 +1,4 @@
+from PIL import Image
 
 from attributes.background import BackgroundAttribute
 from attributes.border import BorderAttribute
@@ -7,6 +8,7 @@ from core.color import Color
 from core.elements import Element
 from core.image import to_image
 from elements.column import ColumnElement
+from elements.pillow import PillowImageElement
 from elements.row import RowElement
 from elements.spacer import Spacer
 
@@ -77,13 +79,16 @@ def test1():
         size(100,100),
     ])
     img = RowElement(
-        attrs=[size(500,500)],
         horizontal_align=HorizontalAlign.CENTER,
         vertical_align=VerticalAlign.CENTER,
         children=[
             red,
             red,
             red,
+            PillowImageElement(
+                Image.open("./input/placeholder.png")
+                    .resize((int(300/2), int(200/2)))
+            ),
         ],
     )
 
