@@ -16,8 +16,8 @@ class Attribute(metaclass=ABCMeta):
 
     def layout(self, context: DrawContext, constraints: LayoutConstraints, target: DrawNode) -> DrawNode:
         node = self.on_layout(context, constraints, target)
-        node.w = constraints.get_width_with_constraints(node.w)
-        node.h = constraints.get_height_with_constraints(node.h)
+        # node.w = constraints.get_width_with_constraints(node.w)
+        # node.h = constraints.get_height_with_constraints(node.h)
         return node
 
     @abstractmethod

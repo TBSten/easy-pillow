@@ -32,7 +32,7 @@ class ColumnElement(Element):
         h = 0
         children: list[DrawNode] = []
         for child in self.children:
-            child_node = child.layout(context, constraints.copy(min_h=None, max_h=None))
+            child_node = child.layout(context, LayoutConstraints.NONE)
             child_node.parent = column_node
             child_node_w = child_node.w = cast(
                 int,

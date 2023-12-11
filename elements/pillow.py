@@ -18,18 +18,21 @@ class PillowImageElement(Element):
     self.img = img
 
   def on_layout(self, context: DrawContext, constraints: LayoutConstraints) -> DrawNode:
+    print(self.img.height, constraints)
     return PillowImageElement.Node(
       img = self.img,
-      label="",
+      label="pillow-image-element",
+      w=constraints.get_width_with_constraints(self.img.width),
+      h=constraints.get_height_with_constraints(self.img.height),
     )
   
   class Node(DrawNode):
-    def __init__(self, label,img: Image.Image, parent: Parent = None, x: Length = None, y: Length = None) -> None:
+    def __init__(self, label,img: Image.Image, parent: Parent = None, x: Length = None, y: Length = None, w: Length = None, h: Length = None) -> None:
       super().__init__(
         label, 
-        parent, 
-        x, y, 
-        w=img.width, h=img.height, 
+        parent,
+        x, y,
+        w, h,
         children=[],
       )
       self.img = img

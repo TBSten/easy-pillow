@@ -16,7 +16,10 @@ class Spacer(Element):
         return node
 
     def on_layout(self, context: DrawContext, constraints: LayoutConstraints) -> DrawNode:
-        return Spacer.Node()
+        return Spacer.Node(
+            w=constraints.get_width_with_constraints(0),
+            h=constraints.get_height_with_constraints(0),
+        )
 
     class Node(DrawNode):
         def __init__(

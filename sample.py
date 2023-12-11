@@ -2,6 +2,7 @@ from PIL import Image
 
 from attributes.background import BackgroundAttribute
 from attributes.border import BorderAttribute
+from attributes.padding import PaddingAttribute
 from attributes.size import HeightAttribute, WidthAttribute, size
 from core.align import HorizontalAlign, VerticalAlign
 from core.color import Color
@@ -22,9 +23,10 @@ WHITE = Color.WHITE
 
 def test1():
     red = Spacer([
-        BorderAttribute(1, WHITE),
-        BackgroundAttribute(Color.RED.copy(a=128)),
         size(100,100),
+        BorderAttribute(10, BLUE),
+        BackgroundAttribute(Color.RED.copy(a=128)),
+        BackgroundAttribute(Color.RED.copy(a=128)),
     ])
     img = BoxElement(
         horizontal_align=HorizontalAlign.CENTER,
@@ -40,6 +42,34 @@ def test1():
             red,
         ],
     )
+
+    # img = BoxElement(
+    #     attrs=[
+    #         BorderAttribute(100, BLUE), 
+    #         PaddingAttribute(10, 10, 10, 10), 
+    #         BackgroundAttribute(RED),
+    #         size(50,50),
+    #     ],
+    #     children=[
+    #     ],
+    # )
+
+    # img = RowElement(
+    #     attrs=[
+    #         BackgroundAttribute(WHITE),
+    #         PaddingAttribute(100,100,100,100),
+    #         BorderAttribute(3, WHITE),
+    #         BackgroundAttribute(RED),
+    #         PaddingAttribute(10,10,10,10),
+    #         size(200,100),
+    #     ],
+    #     children=[
+    #         Spacer(attrs=[
+    #             BackgroundAttribute(Color(128,255,128)), 
+    #             size(100,100),
+    #         ])
+    #     ],
+    # )
 
     to_image(img,debug=True).save("./output/test1.png")
 

@@ -32,9 +32,8 @@ class BoxElement(Element):
         content_h = 0
         children: list[DrawNode] = []
         for child in self.children:
-            child_node = child.layout(context, constraints.copy())
+            child_node = child.layout(context, LayoutConstraints.NONE)
             child_node.parent = box_node
-
 
             children.append(child_node)
 

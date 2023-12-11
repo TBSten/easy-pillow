@@ -32,7 +32,7 @@ class RowElement(Element):
         h = 0
         children: list[DrawNode] = []
         for child in self.children:
-            child_node = child.layout(context, constraints)
+            child_node = child.layout(context, LayoutConstraints.NONE)
             child_node.parent = row_node
             child_node.h = child_node_h = cast(
                 int,

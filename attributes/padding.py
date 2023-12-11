@@ -13,6 +13,16 @@ class PaddingAttribute(Attribute):
         self.right = right
         self.bottom = bottom
 
+    def set_constraints(self, context: DrawContext, constraints: LayoutConstraints) -> LayoutConstraints:
+        con = constraints.copy(
+            min_w=constraints.min_w - self.left - self.right if constraints.min_w is not None else None,
+            min_h=constraints.min_h - self.top - self.bottom if constraints.min_h is not None else None,            
+            max_w=constraints.max_w - self.left - self.right if constraints.max_w is not None else None,
+            max_h=constraints.max_h - self.top - self.bottom if constraints.max_h is not None else None,            
+        )
+        print("    ->", con)
+        return con
+
     def on_layout(self, context: DrawContext, constraints: LayoutConstraints, target: DrawNode) -> DrawNode:
         left = self.left
         top = self.top

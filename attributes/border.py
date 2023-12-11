@@ -19,13 +19,20 @@ class RoundAttribute(Attribute):
         self.width = width
         self.color = color
 
+    def set_constraints(self, context: DrawContext, constraints: LayoutConstraints) -> LayoutConstraints:
+        return constraints.copy(
+            max_w=constraints.max_w if constraints.max_w is not None else None,
+            max_h=constraints.max_h if constraints.max_h is not None else None,
+        )
+
     def on_layout(self, context: DrawContext, constraints: LayoutConstraints, target: DrawNode) -> DrawNode:
         attr_node = RoundAttribute.Node(
             width=self.width,
             color=self.color,
             label="round-attr",
             parent=target.parent,
-            w=target.w, h=target.h,
+            w=target.w, 
+            h=target.h,
             children=[target],
         )
         target.x = 0
