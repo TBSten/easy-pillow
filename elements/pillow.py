@@ -33,9 +33,7 @@ class PillowImageElement(Element):
         children=[],
       )
       self.img = img
-      print(self.x, self.y, self.w, self.h)
     def on_draw(self, context: DrawContext):
-      print("pi",self.w, self.h, self.img.width, self.img.height)
       context.img.alpha_composite(
         self.img, 
         dest=(int(self.absolute_x), int(self.absolute_y)),
