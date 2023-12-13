@@ -17,24 +17,11 @@ class WidthAttribute(Attribute):
             max_w=self.width,
         )
 
-    def on_layout(self, context: DrawContext, constraints: LayoutConstraints, target: DrawNode) -> DrawNode:
-        return target
+    def on_layout(self, context: DrawContext, constraints: LayoutConstraints, target: DrawNode):
+        pass
 
-    class Node(DrawNode):
-        def __init__(
-            self,
-            label,
-            parent: Parent = None,
-            x: Length = None,
-            y: Length = None,
-            w: Length = None,
-            h: Length = None,
-            children: list[DrawNodeType] = [],
-        ) -> None:
-            super().__init__(label, parent, x, y, w, h, children)
-
-        def on_draw(self, context: DrawContext):
-            self.draw_children(context)
+    def on_draw(self, context: DrawContext, target: DrawNode):
+        pass
 
 
 class HeightAttribute(Attribute):
@@ -48,24 +35,11 @@ class HeightAttribute(Attribute):
             max_h=self.height,
         )
 
-    def on_layout(self, context: DrawContext, constraints: LayoutConstraints, target: DrawNode) -> DrawNode:
-        return target
+    def on_layout(self, context: DrawContext, constraints: LayoutConstraints, target: DrawNode):
+        pass
 
-    class Node(DrawNode):
-        def __init__(
-            self,
-            label,
-            parent: Parent = None,
-            x: Length = None,
-            y: Length = None,
-            w: Length = None,
-            h: Length = None,
-            children: list[DrawNodeType] = [],
-        ) -> None:
-            super().__init__(label, parent, x, y, w, h, children)
-
-        def on_draw(self, context: DrawContext):
-            self.draw_children(context)
+    def on_draw(self, context: DrawContext, target: DrawNode):
+        pass
 
 
 def size(width: Number, height: Number):

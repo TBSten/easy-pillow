@@ -23,19 +23,22 @@ WHITE = Color.WHITE
 
 def test1():
     red = Spacer([
-        size(100,100),
+        size(100, 100),
         BorderAttribute(10, BLUE),
         BackgroundAttribute(Color.RED.copy(a=128)),
-        BackgroundAttribute(Color.RED.copy(a=128)),
+        # BackgroundAttribute(Color.RED.copy(a=128)),
     ])
-    img = BoxElement(
+    img = ColumnElement(
         horizontal_align=HorizontalAlign.CENTER,
         vertical_align=VerticalAlign.CENTER,
-        attrs=[HeightAttribute(300), BackgroundAttribute(Color.WHITE)],
+        attrs=[
+            # HeightAttribute(300),
+            BackgroundAttribute(Color.WHITE),
+        ],
         children=[
             PillowImageElement(
                 Image.open("./input/placeholder.png")
-                    .resize((int(300/2), int(200/2)))
+                .resize((int(300/2), int(200/2)))
             ),
             red,
             red,
@@ -45,8 +48,8 @@ def test1():
 
     # img = BoxElement(
     #     attrs=[
-    #         BorderAttribute(100, BLUE), 
-    #         PaddingAttribute(10, 10, 10, 10), 
+    #         BorderAttribute(100, BLUE),
+    #         PaddingAttribute(10, 10, 10, 10),
     #         BackgroundAttribute(RED),
     #         size(50,50),
     #     ],
@@ -65,13 +68,13 @@ def test1():
     #     ],
     #     children=[
     #         Spacer(attrs=[
-    #             BackgroundAttribute(Color(128,255,128)), 
+    #             BackgroundAttribute(Color(128,255,128)),
     #             size(100,100),
     #         ])
     #     ],
     # )
 
-    to_image(img,debug=True).save("./output/test1.png")
+    to_image(img, debug=True).save("./output/test1.png")
 
 
 test1()

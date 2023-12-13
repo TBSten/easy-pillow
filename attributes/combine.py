@@ -14,8 +14,11 @@ class CombinedAttribute(Attribute):
             constraints = attr.set_constraints(context, constraints)
         return constraints
 
-    def on_layout(self, context: DrawContext, constraints: LayoutConstraints, target: DrawNode) -> DrawNode:
+    def on_layout(self, context: DrawContext, constraints: LayoutConstraints, target: DrawNode):
         node = target
         for attr in reversed(self.attrs):
-            node = attr.layout(context, constraints, node)
-        return node
+            attr.layout(context, constraints, node)
+
+    def on_draw(self, context: DrawContext, target: DrawNode):
+        for attr in self.attrs:
+            attr.draw(context, target)

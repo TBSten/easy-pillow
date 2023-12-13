@@ -18,12 +18,11 @@ class Element(metaclass=ABCMeta):
             constraints = attr.set_constraints(context, constraints)
         node = self.on_layout(context, constraints.copy())
         for attr in reversed(self.attrs):
-            node = attr.layout(context, constraints, node)
-            # node.w = constraints.get_width_with_constraints(node.w)
-            # node.h = constraints.get_height_with_constraints(node.h)
+            attr.layout(context, constraints, node)
         # あってるか不安
         node.w = parent_constraints.get_width_with_constraints(node.w)
         node.h = parent_constraints.get_height_with_constraints(node.h)
+        node.add_attrs(self.attrs)
         return node
 
     @abstractmethod

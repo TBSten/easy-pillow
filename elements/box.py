@@ -8,6 +8,7 @@ from core.layout import LayoutConstraints
 from core.node import DrawNode
 from core.unit import Number
 
+
 class BoxElement(Element):
     def __init__(
         self,
@@ -53,8 +54,10 @@ class BoxElement(Element):
             if child_node.h is None:
                 child_node.h = box_node.h
             # self.horizontal_align, self.vertical_align を適用
-            child_node.x = (box_node.w-child_node.w) * self.horizontal_align.value
-            child_node.y = (box_node.h-child_node.h) * self.vertical_align.value
+            child_node.x = (box_node.w - child_node.w) * \
+                self.horizontal_align.value
+            child_node.y = (box_node.h - child_node.h) * \
+                self.vertical_align.value
 
         box_node.children = children
         return box_node

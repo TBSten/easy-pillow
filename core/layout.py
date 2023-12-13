@@ -147,7 +147,7 @@ class LayoutConstraints:
         max_w: Length = None,
         min_h: Length = None,
         max_h: Length = None,
-    ) -> None:
+    ):
         con = LayoutConstraints(
             min_w=min_w if min_w is not None else self.min_w,
             max_w=max_w if max_w is not None else self.max_w,

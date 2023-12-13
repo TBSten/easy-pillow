@@ -26,6 +26,8 @@ class DrawNode(metaclass=ABCMeta):
         self.h = h
         self.children = children
         self.label = label
+        from core.attributes import Attrs
+        self.attrs: Attrs = []
 
     @property
     def absolute_x(self):
@@ -60,12 +62,17 @@ class DrawNode(metaclass=ABCMeta):
     def draw(self, context: DrawContext):
         base_img = context.img
         context.img = Image.new("RGBA", base_img.size)
+        self.draw_attrs(context)
         self.on_draw(context)
         context.img = Image.alpha_composite(base_img, context.img)
 
     def draw_children(self, context: DrawContext):
         for child in self.children:
             child.draw(context)
+
+    def draw_attrs(self, context: DrawContext):
+        for attr in self.attrs:
+            attr.draw(context, self)
 
     @abstractmethod
     def on_draw(self, context: DrawContext):
@@ -85,6 +92,9 @@ class DrawNode(metaclass=ABCMeta):
         if h is None:
             raise NotImplementedError(f"invalid h {h}")
         return (x, y, x+w, y+h)
+
+    def add_attrs(self, attrs):
+        self.attrs += attrs
 
 
 class RootDrawNode(DrawNode):

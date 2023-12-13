@@ -11,6 +11,7 @@ class Spacer(Element):
         attrs: Attrs = [],
     ):
         super().__init__(attrs=attrs)
+
     def layout(self, context: DrawContext, constraints: LayoutConstraints) -> DrawNode:
         node = super().layout(context, constraints)
         return node
